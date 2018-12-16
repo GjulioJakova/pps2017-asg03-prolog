@@ -1,4 +1,3 @@
-allreaching([],N,[]).
-allreaching([e(H1,H2)|T],N,[H2|O]):- H1=N, allreaching(T,H2,O),!.
-allreaching([e(H1,H2)|T],N,[H2|O]):- H1=N, allreaching(T,H1,O),!.
-allreaching([e(_,_)|T],N,O):- allreaching(T,N,O).
+anypath(G, N1, N2, [e(N1, N2)]) :- member(e(N1, N2), G).
+anypath(G, N1, N2, [e(N1, N3)|L]) :- member(e(N1, N3), G), anypath(G, N3, N2, L).
+allreaching(G, N, L):- findall(A, anypath(G, N, A, _), L).
